@@ -1,0 +1,28 @@
+{
+	"devDependencies": {
+		"@types/express": "^5.0.0",
+		"@types/node": "^22.10.5",
+		"nodemon": "^3.1.9",
+		"ts-node": "^10.9.2",
+		"tsup": "^8.3.5",
+		"tsx": "^4.19.2",
+		"typescript": "^5.7.2"
+	},
+	"dependencies": {
+		"dotenv": "^16.4.7",
+		"express": "^4.21.2"
+	},
+	"name": "backend-interview",
+	"version": "1.0.0",
+	"description": "## Problem Definition",
+	"main": "server.ts",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"dev": "nodemon server.ts",
+		"build": "tsup src",
+		"start": "npm run build && node build/server.ts"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC"
+}
