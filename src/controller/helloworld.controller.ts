@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express';
-import { Http } from '../utils/http.enum';
-import { IController } from '../interfaces/controller.interface';
+import { Http } from '../utils/enum/http.enum';
+import { IController } from '../interfaces/controller/controller.interface';
 
 // import { IHelloWorldService } from 'helloworld.service.ts'
 
