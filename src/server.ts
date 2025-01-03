@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import HelloWorldController from './controller/helloworld.controller';
 import App from './app';
+import BetterListGeneratorController from './controller/betterListGenerator.controller';
 
 /* Main Function, responsible for gathering ALL abstractions (instances) and using them in your services that expect to receive an instance of an abstract class.
 
@@ -34,6 +35,7 @@ export async function server(): Promise<void> {
 */
 
 	const controllers = new HelloWorldController();
+	const gerenatorController = new BetterListGeneratorController();
 
 	/**
 
@@ -41,7 +43,7 @@ export async function server(): Promise<void> {
 
 */
 
-	const app = new App([controllers]).app; //acessando a propriedade publica da app que contem o express()
+	const app = new App([controllers, gerenatorController]).app; //acessando a propriedade publica da app que contem o express()
 
 	app.listen(process.env.PORT, () => {
 		console.log(`Server is running on port ${process.env.PORT}`);
