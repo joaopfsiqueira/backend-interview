@@ -1,4 +1,4 @@
-export interface IPatient {
+export default interface IPatient {
 	id: string;
 	name: string;
 	location: {
@@ -10,13 +10,3 @@ export interface IPatient {
 	canceledOffers: number;
 	averageReplyTime: number;
 }
-
-class PatientModel {
-	constructor(public patient: IPatient) {}
-
-	getPatient(): IPatient {
-		return this.patient;
-	}
-}
-
-export default PatientModel;
