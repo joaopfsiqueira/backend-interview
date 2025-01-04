@@ -10,4 +10,5 @@ export default interface IPatient {
 	canceledOffers: number;
 	averageReplyTime: number;
 	distance?: number;
+	score?: number;
 }
