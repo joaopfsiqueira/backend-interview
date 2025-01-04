@@ -98,19 +98,24 @@ class Calculations implements ICalculations {
 		if (patient.distance === undefined) {
 			throw new Error('Distance is not defined');
 		}
-		const distance_norm = this.minMaxNormalization(patient.distance, minMaxValues.distance);
 		const accepted_norm = this.minMaxNormalization(patient.acceptedOffers, minMaxValues.accepted);
 
-		// Invert the values for canceled offers and reply time to give more weight to lower valuesß
-		const canceled_norm_inv = 1 - this.minMaxNormalization(patient.canceledOffers, minMaxValues.canceled);
-		const reply_norm_inv = 1 - this.minMaxNormalization(patient.averageReplyTime, minMaxValues.reply);
+		// Invert the values for canceled offers and reply time to give more weight to lower values
+		// The lower the number of canceled offers, distance and the lower the average reply time, the better
+		const distance_norm_inv = this.minMaxNormalizationTheSmallerTheBetter(patient.distance, minMaxValues.distance);
+		const canceled_norm_inv = this.minMaxNormalizationTheSmallerTheBetter(patient.canceledOffers, minMaxValues.canceled);
+		const reply_norm_inv = this.minMaxNormalizationTheSmallerTheBetter(patient.averageReplyTime, minMaxValues.reply);
 
-		const score = this.WeightApplication(age_norm, distance_norm, accepted_norm, canceled_norm_inv, reply_norm_inv);
+		const score = this.WeightApplication(age_norm, distance_norm_inv, accepted_norm, canceled_norm_inv, reply_norm_inv);
 		patient.score = score;
 	}
 
 	minMaxNormalization(value: number, range: Range): number {
 		return (value - range.min) / (range.max - range.min);
+	}
+
+	minMaxNormalizationTheSmallerTheBetter(value: number, range: Range): number {
+		return 1 - (value - range.min) / (range.max - range.min);
 	}
 
 	WeightApplication(

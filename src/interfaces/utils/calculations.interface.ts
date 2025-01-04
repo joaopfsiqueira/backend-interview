@@ -6,6 +6,7 @@ export interface ICalculations {
 	haversineMethod(lat1: number, lon1: number, lat2: number, lon2: number, unit?: Unit): number;
 	patientScoreCalculator(patient: IPatient, minMaxValues: IMinMaxValues): void;
 	minMaxNormalization(value: number, range: Range): number;
+	minMaxNormalizationTheSmallerTheBetter(value: number, range: Range): number;
 	WeightApplication(
 		age_norm: number,
 		distance_norm: number,
