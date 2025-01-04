@@ -27,7 +27,9 @@ class BetterListGeneratorController implements IController {
 				return res.status(Http.BAD_REQUEST).send(error);
 			}
 
-			return res.status(Http.OK).send('We are working! Come back later!');
+			const list = this.service.processList(validation.data);
+
+			return res.status(Http.OK).send(list);
 		} catch (error) {
 			const isError = error instanceof Error;
 
