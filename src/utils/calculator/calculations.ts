@@ -1,5 +1,5 @@
 import { Weights } from '../enum/weight.enum';
-import IPatient from '../../model/patient.model';
+import { IPatient } from '../../model/patient.model';
 import { IMinMaxValues, IGeolocation, ICalculations } from '../../interfaces/utils/calculations.interface';
 import { Unit, Range } from '../types/types';
 

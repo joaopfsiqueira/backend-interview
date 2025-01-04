@@ -1,7 +1,7 @@
-import IPatient from '../../model/patient.model';
+import { IResponsePatients } from '../../model/patient.model';
 import { IGeolocation } from '../utils/calculations.interface';
 
 export interface IBetterListGeneratorService {
-	processList(reference: IGeolocation): IPatient[];
+	processList(reference: IGeolocation): IResponsePatients[];
 	loadPatients(): void;
 }

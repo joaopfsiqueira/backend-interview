@@ -1,4 +1,4 @@
-import IPatient from '../model/patient.model';
+import { IPatient, IResponsePatients } from '../model/patient.model';
 import { IBetterListGeneratorService } from '../interfaces/service/betterListGenerator.service.interface';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -8,7 +8,7 @@ class BetterListGeneratorService implements IBetterListGeneratorService {
 	private patients: IPatient[] = [];
 	constructor(private calculator: ICalculations) {}
 
-	processList(reference: IGeolocation): IPatient[] {
+	processList(reference: IGeolocation): IResponsePatients[] {
 		// Load patients in memory
 		this.loadPatients();
 
@@ -25,7 +25,14 @@ class BetterListGeneratorService implements IBetterListGeneratorService {
 		const betterPatients = this.patients
 			.filter((patient) => patient.score !== undefined)
 			.sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
-			.slice(0, 10);
+			.slice(0, 10)
+			.map((patient) => {
+				return {
+					id: patient.id,
+					name: patient.name,
+					score: Math.trunc(patient.score!),
+				};
+			});
 
 		return betterPatients;
 	}
