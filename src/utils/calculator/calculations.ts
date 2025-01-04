@@ -107,7 +107,8 @@ class Calculations implements ICalculations {
 		const reply_norm_inv = this.minMaxNormalizationTheSmallerTheBetter(patient.averageReplyTime, minMaxValues.reply);
 
 		const score = this.WeightApplication(age_norm, distance_norm_inv, accepted_norm, canceled_norm_inv, reply_norm_inv);
-		patient.score = score;
+		// garantee that the score is never 0, 1 as the lowest value.
+		patient.score = score < 0.1 ? 0.1 : score;
 	}
 
 	minMaxNormalization(value: number, range: Range): number {
