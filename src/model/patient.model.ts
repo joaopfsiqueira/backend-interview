@@ -9,4 +9,5 @@ export default interface IPatient {
 	acceptedOffers: number;
 	canceledOffers: number;
 	averageReplyTime: number;
+	distance?: number;
 }
