@@ -32,7 +32,7 @@ class BetterListGeneratorService implements IBetterListGeneratorService {
 
 	loadPatients(): void {
 		try {
-			const filePath = path.join(__dirname, 'utils', 'mocks', 'patients.json');
+			const filePath = path.join(__dirname, '..', 'utils', 'mocks', 'patients.json');
 			const data = fs.readFileSync(filePath, 'utf-8');
 			this.patients = JSON.parse(data);
 		} catch (error) {
