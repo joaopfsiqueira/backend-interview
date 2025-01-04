@@ -1,5 +1,4 @@
 import 'dotenv/config';
-import HelloWorldController from './controller/helloworld.controller';
 import App from './app';
 import BetterListGeneratorController from './controller/betterListGenerator.controller';
 import BetterListGeneratorService from './service/betterListGenerator.service';
@@ -12,9 +11,9 @@ Or, simply run a database connection, execute a function, etc.
 */
 
 export async function server(): Promise<void> {
-	/**
+	/**ß
 
-* initializing Services
+* initializing Services / Functions
 
 */
 	const calculators = new Calculations();
@@ -26,7 +25,6 @@ export async function server(): Promise<void> {
 
 */
 
-	const controllers = new HelloWorldController();
 	const gerenatorController = new BetterListGeneratorController(service);
 
 	/**
@@ -35,7 +33,7 @@ export async function server(): Promise<void> {
 
 */
 
-	const app = new App([controllers, gerenatorController]).app; //acessando a propriedade publica da app que contem o express()
+	const app = new App([gerenatorController]).app; //acessando a propriedade publica da app que contem o express()
 
 	const port = process.env.PORT || 3333;
 	app.listen(port, () => {
