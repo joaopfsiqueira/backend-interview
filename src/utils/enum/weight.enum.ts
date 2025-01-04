@@ -1,4 +1,4 @@
-export enum Weight {
+export enum Weights {
 	AGE = 0.1,
 	DISTANCE = 0.1,
 	ACCEPTED_OFFERS = 0.3,
