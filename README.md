@@ -1,37 +1,192 @@
 # Luma Technical Interview
 
-## Problem Definition
+### Summary
 
-A busy hospital has a list of patients waiting to see a doctor. The waitlist is created sequentially (e.g. patients are added in a fifo order) from the time the patient calls.  Once there is an availability, the front desk calls each patient to offer the appointment in the order they were added to the waitlist. The staff member from the front desk has noticed that she wastes a lot of time trying to find a patient from the waitlist since they&#39;re often not available, don&#39;t pick up the phone, etc.  She would like to generate a better list that will increase her chances of finding a patient in the first few calls.
+-    [About](#about)
+-    [Requirements](#requirements)
+-    [Stack used](#stack)
+-    [Model and Responses](#model)
+     -    [Environment](#environment)
+-    [Running](#running)
+     -    [Running Locally](#runninglocally)
+     -    [Running with Docker](#runningdocker)
+     -    [Unit Test](#unit)
 
-## Interview Task
+<a id="about"></a>
 
-Given patient demographics and behavioral data (see sample-data/patients.json), create an algorithm that will process a set of historical patient data and compute a score for each patient that (1 as the lowest, 10 as the highest) that represents the chance of a patient accepting the offer off the waitlist. Take in consideration that patients who have little behavior data should be randomly added to the top list as to give them a chance to be selected. Expose an api that takes a facility's location as input and returns an ordered list of 10 patients who will most likely accept the appointment offer.
+## 📜 About:
 
-## Weighting Categories
+The api has an algorithm that calculates an acceptance score (1 to 10) for patients based on demographic and behavioral data, estimating the likelihood that they will accept an appointment offer. Patients with low behavioral data are randomly assigned to the top of the list, ensuring fairness. The API allows filtering by facility location and returns the 10 patients most likely to accept the offer, optimizing resources and improving efficiency in the scheduling process.
 
-Demographic
+<a id="requirements"></a>
 
-- age  (weighted 10%)
-- distance to practice (weighted 10%)
+## Requirements
 
-Behavior
+Ensure you have the following installed:
 
-- number of accepted offers (weighted 30%)
-- number of cancelled offers (weighted 30%)
-- reply time (how long it took for patients to reply) (weighted 20%)
+-    **Node.js**: Version 20.14.0 or higher
+-    **npm**: Version 10.7.0 or higher
+-    **Docker**: Version 27.2.0 or compatible
+-    **Docker Compose** version v2.29.2 for desktop!
 
-## Patient Model
+<a id="stack"></a>
 
-- ID
-- Age (in years)
-- location
-  - Lat
-  - long
-- acceptedOffers (integer)
-- canceledOffers (integer)
-- averageReplyTime (integer, in seconds)
+## 🔧 Stack Utilizada:
 
-## Deliverables
+-    [NodeJS](https://nodejs.org/)
+-    [Express](https://expressjs.com/)
+-    [Vitest](https://www.npmjs.com/package/vitest)
+-    [Nodemon](https://nodemon.io/)
+-    [Zod](https://zod.dev/)
 
-The core logic of the code should be written as a Node.js as a library that anyone can import and use.  There should also be an API endpoint exposed to run your solution. It should contain documentation and unit tests that show your understanding of the problem. Once you&#39;re finished, submit a PR to this repo.
+<a id="model"></a>
+
+## Model and Responses
+
+Patient Model:
+**Ex:**
+
+```Typescript
+{
+	id: string;
+	name: string;
+	location: {
+		latitude: string;
+		longitude: string;
+	};
+	age: number;
+	acceptedOffers: number;
+	canceledOffers: number;
+	averageReplyTime: number;
+	distance?: number;
+	score?: number;
+	totalOffers?: number;
+	behavior?: boolean; // little = false, much = true
+	behaviorScore?: number;
+}
+```
+
+Responses:
+**Ex: Short and Debug**
+
+```Typescript
+{
+     id: string;
+	name: string;
+	score: number;
+	behavior: string;
+}
+```
+
+If you call the route `http://localhost:3333/api/v1/list-generator/debug?latitude=00.0000&longitude=00.0000`
+
+```Typescript
+{
+	id: string;
+	name: string;
+	distance: number;
+	age: number;
+	acceptedOffers: number;
+	canceledOffers: number;
+	averageReplyTime: number;
+	score: {
+		age: number;
+		accepted: number;
+		canceled: number;
+		reply: number;
+		distance: number;
+		total: number;
+	};
+	behaviorScore?: number;
+	behavior?: string;
+}
+```
+
+<a id="environment"></a>
+
+### Environment:
+
+_I separated production and development! If you want to test the code after building the javascript, you will use .env.prod along with the npm run start script! If you run the application through docker, it will always run in production!_
+
+Before running the code, you need to fill in two files: .env and .env.prod
+
+Here is the template
+**Ex:**
+
+```.env
+NODE_ENV=development
+PORT=3333
+TOTAL_TOP_PATIENTS=7
+TOTAL_RANDOM_PATIENTS=3
+```
+
+```.prod
+NODE_ENV=production
+PORT=3333
+TOTAL_TOP_PATIENTS=7
+TOTAL_RANDOM_PATIENTS=3
+```
+
+If you want to have more than 3 random patients, just change the value!
+
+Remember that the sum of TOTAL_TOP_PATIENTS and TOTAL_RANDOM_PATIENTS **MUST** be 10 (To return the 10 patients).
+<a id="running"></a>
+
+## 🏎 Running
+
+You can choose between running locally or running through a docker container!
+
+<a id="runninglocally"></a>
+
+### Running locally
+
+At the root of the project
+
+1. run `npm i`
+2. run `npm run dev` - development environment, using nodemon!
+3. run `npm start` - transpile to javascript and run in production environment! (Different \_\_dirpath)
+
+<a id="runningdocker"></a>
+
+### Running in a Docker container
+
+At the root of the project
+
+1. using _docker compose_ `docker compose up -d`
+
+without _docker compose_
+
+1. run `docker build . -t backend-interview`
+2. run `docker run -d --name backend-interview -p 3333:3333 backend-interview:latest`
+
+<a id="testyourself"></a>
+
+## Test by yourself!
+
+The API has three http routes. Remember to swap the latitude and longitude values!!
+
+-    GET `ping` - will receive pong
+-    GET `/api/v1/list-generator?latitude=00.0000&-longitude=00.0000` will receive the cleanest object
+-    GET `/api/v1/list-generator/debug?latitude=00.0000&longitude=00.0000` will receive information to validate the calculation.
+
+I like to use platforms that allow making http requests like postman or insomnia! In my tests I used **postman**! I even left a json file of the postman collection in the root of the project to import and save time, if you want!
+
+However, you can also call the route in your browser, putting the url as: http://localhost:3333/api/v1/list-generator?latitude=68.8120&longitude=71.3018
+
+Or, using terminal curl request! Here's an example!
+
+```shell
+curl --location 'http://localhost:3333/api/v1/list-generator/debug?latitude=68.8120&longitude=71.3018'
+```
+
+<a id="unit"></a>
+
+### Unit Test
+
+To run unit test is simple!
+
+At the root of the project
+
+1. run `npm i`
+2. run `npm run test:coverage` - run tests with coverage
+3. run `npm run test` - run tests without coverage
