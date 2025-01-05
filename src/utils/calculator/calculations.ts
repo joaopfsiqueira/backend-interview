@@ -1,7 +1,7 @@
 import { Weights } from '../enum/weight.enum';
 import { IPatient } from '../../model/patient.model';
 import { IMinMaxValues, IGeolocation, ICalculations } from '../../interfaces/utils/calculations.interface';
-import { Unit, TRange } from '../types/types';
+import { TUnit, TRange } from '../types/types';
 
 class Calculations implements ICalculations {
 	minMaxFinder(patients: IPatient[], reference: IGeolocation): IMinMaxValues {
@@ -75,7 +75,7 @@ class Calculations implements ICalculations {
 		);
 	}
 
-	haversineMethod(lat1: number, lon1: number, lat2: number, lon2: number, unit: Unit = 'km'): number {
+	haversineMethod(lat1: number, lon1: number, lat2: number, lon2: number, unit: TUnit = 'km'): number {
 		// Earth's average radius in kilometers and miles
 		const radius = {
 			km: 6371,

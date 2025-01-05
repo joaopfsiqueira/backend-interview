@@ -1,5 +1,5 @@
-export type Unit = 'km' | 'mi';
-export type Range = {
+export type TUnit = 'km' | 'mi';
+export type TRange = {
 	min: number;
 	max: number;
 };

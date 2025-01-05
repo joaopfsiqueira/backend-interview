@@ -1,9 +1,9 @@
 import { IPatient } from '../../model/patient.model';
-import { Unit, TRange } from '../../utils/types/types';
+import { TUnit, TRange } from '../../utils/types/types';
 
 export interface ICalculations {
 	minMaxFinder(patients: IPatient[], reference: IGeolocation): IMinMaxValues;
-	haversineMethod(lat1: number, lon1: number, lat2: number, lon2: number, unit?: Unit): number;
+	haversineMethod(lat1: number, lon1: number, lat2: number, lon2: number, unit?: TUnit): number;
 	patientScoreCalculator(patient: IPatient, minMaxValues: IMinMaxValues): void;
 	minMaxNormalization(value: number, range: TRange): number;
 	minMaxNormalizationTheSmallerTheBetter(value: number, range: TRange): number;
