@@ -1,6 +1,6 @@
 import { Weights } from '../enum/weight.enum';
 import { IPatient } from '../../model/patient.model';
-import { IMinMaxValues, IGeolocation, ICalculations } from '../../interfaces/utils/calculations.interface';
+import { IMinMaxValues, IGeolocation, ICalculations } from '../../utils/interfaces/utils/calculations.interface';
 import { TUnit, TRange } from '../types/types';
 
 class Calculations implements ICalculations {

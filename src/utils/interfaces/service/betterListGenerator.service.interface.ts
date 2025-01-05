@@ -1,4 +1,4 @@
-import { IResponsePatients } from '../../model/patient.model';
+import { IResponsePatients } from '../../../model/patient.model';
 import { IGeolocation } from '../utils/calculations.interface';
 
 export interface IBetterListGeneratorService {

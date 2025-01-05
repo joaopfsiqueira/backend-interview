@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { IController } from './interfaces/controller/controller.interface'; //taking everything that is implemented inside the IController, which is the interface that is implemented in each controller class
+import { IController } from './utils/interfaces/controller/controller.interface'; //taking everything that is implemented inside the IController, which is the interface that is implemented in each controller class
 
 class App {
 	app: express.Application; //taking everything that is inside the application interface, methods etc (express, use, listen, etc) (dependency inversion) (open and closed), this app will be accessed when we instantiate the App class on the server

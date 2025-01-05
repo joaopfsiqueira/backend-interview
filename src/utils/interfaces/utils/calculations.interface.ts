@@ -1,5 +1,5 @@
-import { IPatient } from '../../model/patient.model';
-import { TUnit, TRange } from '../../utils/types/types';
+import { IPatient } from '../../../model/patient.model';
+import { TUnit, TRange } from '../../../utils/types/types';
 
 export interface ICalculations {
 	minMaxFinder(patients: IPatient[], reference: IGeolocation): IMinMaxValues;
