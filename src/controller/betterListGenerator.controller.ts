@@ -16,13 +16,14 @@ class BetterListGeneratorController implements IController {
 	}
 
 	private initializeRouter(): void {
-		this.router.post(`${this.basePath}`, this.orderingPatients.bind(this));
-		this.router.post(`${this.basePath}/debug`, this.orderingPatientsDebug.bind(this));
+		this.router.get(`${this.basePath}`, this.orderingPatients.bind(this));
+		this.router.get(`${this.basePath}/debug`, this.orderingPatientsDebug.bind(this));
 	}
 
 	private async orderingPatients(_req: Request, res: Response): Promise<Response | Error> {
 		try {
-			const validation = await GeolocationSchema.safeParseAsync(_req.body);
+			const { latitude, longitude } = _req.query;
+			const validation = await GeolocationSchema.safeParseAsync({ latitude: Number(latitude), longitude: Number(longitude) });
 			if (!validation.success) {
 				const error = ErrorZodFormat(validation.error.errors);
 				return res.status(Http.BAD_REQUEST).send(error);
@@ -42,7 +43,8 @@ class BetterListGeneratorController implements IController {
 
 	private async orderingPatientsDebug(_req: Request, res: Response): Promise<Response | Error> {
 		try {
-			const validation = await GeolocationSchema.safeParseAsync(_req.body);
+			const { latitude, longitude } = _req.query;
+			const validation = await GeolocationSchema.safeParseAsync({ latitude: Number(latitude), longitude: Number(longitude) });
 			if (!validation.success) {
 				const error = ErrorZodFormat(validation.error.errors);
 				return res.status(Http.BAD_REQUEST).send(error);
