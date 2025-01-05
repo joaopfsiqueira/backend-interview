@@ -30,7 +30,7 @@ class BetterListGeneratorService implements IBetterListGeneratorService {
 				return {
 					id: patient.id,
 					name: patient.name,
-					score: Math.trunc(patient.score!),
+					score: patient.score!,
 				};
 			});
 

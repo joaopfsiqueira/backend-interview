@@ -1,7 +1,7 @@
 import { Weights } from '../enum/weight.enum';
 import { IPatient } from '../../model/patient.model';
 import { IMinMaxValues, IGeolocation, ICalculations } from '../../interfaces/utils/calculations.interface';
-import { Unit, Range } from '../types/types';
+import { Unit, TRange } from '../types/types';
 
 class Calculations implements ICalculations {
 	minMaxFinder(patients: IPatient[], reference: IGeolocation): IMinMaxValues {
@@ -102,12 +102,11 @@ class Calculations implements ICalculations {
 	}
 
 	patientScoreCalculator(patient: IPatient, minMaxValues: IMinMaxValues): void {
-		// Calculate the score for each patient using normalization and weight application
-		const age_norm = this.minMaxNormalization(patient.age, minMaxValues.age);
-
 		if (patient.distance === undefined) {
 			throw new Error('Distance is not defined');
 		}
+		// Calculate the score for each patient using normalization and weight application
+		const age_norm = this.minMaxNormalization(patient.age, minMaxValues.age);
 		const accepted_norm = this.minMaxNormalization(patient.acceptedOffers, minMaxValues.accepted);
 
 		// Invert the values for canceled offers and reply time to give more weight to lower values
@@ -116,20 +115,27 @@ class Calculations implements ICalculations {
 		const canceled_norm_inv = this.minMaxNormalizationTheSmallerTheBetter(patient.canceledOffers, minMaxValues.canceled);
 		const reply_norm_inv = this.minMaxNormalizationTheSmallerTheBetter(patient.averageReplyTime, minMaxValues.reply);
 
-		const score = this.WeightApplication(age_norm, distance_norm_inv, accepted_norm, canceled_norm_inv, reply_norm_inv);
+		// transform the score to a 0-10 scale
+		const score = Number(
+			(this.weightApplication(age_norm, distance_norm_inv, accepted_norm, canceled_norm_inv, reply_norm_inv)! * 10).toFixed(2),
+		);
 		// garantee that the score is never 0, 1 as the lowest value.
-		patient.score = score < 0.1 ? 0.1 : score;
+
+		patient.score = score < 1 ? 1 : score;
+
+		// calculing the behavior of the patient, if the patient has little behavior data he will be able to be select randomly in the list
+		this.littleBehaviorCalculator(patient, minMaxValues.totalOffers);
 	}
 
-	minMaxNormalization(value: number, range: Range): number {
+	minMaxNormalization(value: number, range: TRange): number {
 		return (value - range.min) / (range.max - range.min);
 	}
 
-	minMaxNormalizationTheSmallerTheBetter(value: number, range: Range): number {
+	minMaxNormalizationTheSmallerTheBetter(value: number, range: TRange): number {
 		return 1 - (value - range.min) / (range.max - range.min);
 	}
 
-	WeightApplication(
+	weightApplication(
 		age_norm: number,
 		distance_norm: number,
 		accepted_norm: number,
@@ -143,6 +149,16 @@ class Calculations implements ICalculations {
 			canceled_norm_inv * Weights.CANCELED_OFFERS +
 			reply_norm_inv * Weights.REPLY_TIME
 		);
+	}
+
+	littleBehaviorCalculator(patient: IPatient, range: TRange): void {
+		const normalizedTotal = this.minMaxNormalization(patient.totalOffers!, range);
+		// if the patient has little behavior data, the score will be 1 or 10%, at this point!
+		if (normalizedTotal <= 1) {
+			patient.behavior = false;
+		} else {
+			patient.behavior = true;
+		}
 	}
 }
 
