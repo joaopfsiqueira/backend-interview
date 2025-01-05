@@ -24,7 +24,7 @@
 		"build": "tsup src",
 		"start": "tsup src && DOTENV_CONFIG_PATH=.env.prod node ./dist/server.js",
 		"test": "vitest",
-		"test:coverage": "vitest --coverage"
+		"test:coverage": "npx vitest run --coverage"
 	},
 	"keywords": [],
 	"author": "",
