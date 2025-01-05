@@ -11,6 +11,7 @@ export interface IPatient {
 	averageReplyTime: number;
 	distance?: number;
 	score?: number;
+	totalOffers?: number;
 }
 
 export interface IResponsePatients {

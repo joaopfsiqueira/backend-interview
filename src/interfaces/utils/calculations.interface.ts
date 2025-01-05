@@ -1,4 +1,4 @@
-import IPatient from '../../model/patient.model';
+import { IPatient } from '../../model/patient.model';
 import { Unit, Range } from '../../utils/types/types';
 
 export interface ICalculations {
@@ -20,6 +20,7 @@ export interface IMinMaxValues {
 	age: Range;
 	accepted: Range;
 	canceled: Range;
+	totalOffers: Range;
 	reply: Range;
 	distance: Range;
 }

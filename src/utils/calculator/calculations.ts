@@ -17,7 +17,9 @@ class Calculations implements ICalculations {
 					reference.longitude,
 				);
 
+				// add distance and total offers to the patient object
 				patient.distance = distance;
+				patient.totalOffers = patient.acceptedOffers + patient.canceledOffers;
 
 				// age
 				accumulator.age.min = Math.min(accumulator.age.min, patient.age);
@@ -30,6 +32,10 @@ class Calculations implements ICalculations {
 				// canceled offers
 				accumulator.canceled.min = Math.min(accumulator.canceled.min, patient.canceledOffers);
 				accumulator.canceled.max = Math.max(accumulator.canceled.max, patient.canceledOffers);
+
+				// total offers, I'll need to define "little behavior data"
+				accumulator.totalOffers.min = Math.min(accumulator.totalOffers.min, patient.acceptedOffers + patient.canceledOffers);
+				accumulator.totalOffers.max = Math.max(accumulator.totalOffers.max, patient.acceptedOffers + patient.canceledOffers);
 
 				// reply time
 				accumulator.reply.min = Math.min(accumulator.reply.min, patient.averageReplyTime);
@@ -50,6 +56,10 @@ class Calculations implements ICalculations {
 					max: -Infinity,
 				},
 				canceled: {
+					min: Infinity,
+					max: -Infinity,
+				},
+				totalOffers: {
 					min: Infinity,
 					max: -Infinity,
 				},
