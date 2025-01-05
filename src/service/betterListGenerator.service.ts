@@ -1,5 +1,9 @@
-import { IPatient, IResponseDetailsPatientsDebug, IResponsePatients } from '../model/patient.model';
-import { IBetterListGeneratorService } from '../utils/interfaces/service/betterListGenerator.service.interface';
+import { IPatient } from '../model/patient.model';
+import {
+	IBetterListGeneratorService,
+	IResponseDetailsPatientsDebug,
+	IResponsePatients,
+} from '../utils/interfaces/service/betterListGenerator.service.interface';
 import * as fs from 'fs';
 import * as path from 'path';
 import { ICalculations, IGeolocation } from '../utils/interfaces/utils/calculations.interface';
