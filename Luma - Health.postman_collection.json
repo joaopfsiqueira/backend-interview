@@ -1,0 +1,226 @@
+{
+	"info": {
+		"_postman_id": "2e383f19-d4b7-48a9-9940-08171f814d21",
+		"name": "Luma - Health",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14537349"
+	},
+	"item": [
+		{
+			"name": "ping",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3333/ping",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"ping"
+					]
+				},
+				"description": "Should return \"pong\" with a 200 statuscode."
+			},
+			"response": []
+		},
+		{
+			"name": "better list generator - get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3333/api/v1/list-generator?latitude=68.8120&longitude=71.3018",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"api",
+						"v1",
+						"list-generator"
+					],
+					"query": [
+						{
+							"key": "latitude",
+							"value": "68.8120"
+						},
+						{
+							"key": "longitude",
+							"value": "71.3018"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3333/api/v1/list-generator?latitude=68.8120&longitude=71.3018",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"v1",
+								"list-generator"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "68.8120"
+								},
+								{
+									"key": "longitude",
+									"value": "71.3018"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1031"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"407-d4AMvjU3TWkmyXZaP0xRvnm84Lc\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 05 Jan 2025 05:13:06 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": \"213097a3-cae1-48cf-b266-a361a972ff27\",\n        \"name\": \"Tamara Roberts\",\n        \"score\": 9.33,\n        \"behavior\": \"good\"\n    },\n    {\n        \"id\": \"f7f4b340-7944-4f4f-bcba-30b9d7bf4c2a\",\n        \"name\": \"Adeline Corwin\",\n        \"score\": 8.67,\n        \"behavior\": \"good\"\n    },\n    {\n        \"id\": \"b4ffa1b5-a496-47de-af84-9ace7fe4ec6d\",\n        \"name\": \"Miss Frida Harris\",\n        \"score\": 8.54,\n        \"behavior\": \"good\"\n    },\n    {\n        \"id\": \"7969ae0a-b16b-43f3-9a16-2c1ce4c119d9\",\n        \"name\": \"Zachary Spencer II\",\n        \"score\": 8.46,\n        \"behavior\": \"good\"\n    },\n    {\n        \"id\": \"bc73e144-56d4-4609-b89b-bdf608938c7f\",\n        \"name\": \"Mrs. Jaquan Lemke\",\n        \"score\": 8.41,\n        \"behavior\": \"good\"\n    },\n    {\n        \"id\": \"9902ce99-e4aa-434b-a5b5-49f2ae156391\",\n        \"name\": \"Laurine Kshlerin\",\n        \"score\": 8.36,\n        \"behavior\": \"good\"\n    },\n    {\n        \"id\": \"b72712f5-07fd-4cc3-8360-57835418df4b\",\n        \"name\": \"Jess Deckow\",\n        \"score\": 8.17,\n        \"behavior\": \"good\"\n    },\n    {\n        \"id\": \"8dc6117b-c087-4bae-bf24-14dfb10dd077\",\n        \"name\": \"Charlotte Mitchell\",\n        \"score\": 6.09,\n        \"behavior\": \"little\"\n    },\n    {\n        \"id\": \"ce3f6da5-e617-4851-9cd2-2ed8028f8c02\",\n        \"name\": \"Barrett Johnson\",\n        \"score\": 4.33,\n        \"behavior\": \"little\"\n    },\n    {\n        \"id\": \"0df32d74-a1c4-4d66-a504-61654d3121df\",\n        \"name\": \"Newell Goldner\",\n        \"score\": 5.26,\n        \"behavior\": \"little\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "better list generator - debugresponse",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3333/api/v1/list-generator/debug?latitude=68.8120&longitude=71.3018",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"api",
+						"v1",
+						"list-generator",
+						"debug"
+					],
+					"query": [
+						{
+							"key": "latitude",
+							"value": "68.8120"
+						},
+						{
+							"key": "longitude",
+							"value": "71.3018"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "better list generator - debugresponse",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3333/api/v1/list-generator/debug?latitude=68.8120&longitude=71.3018",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"api",
+								"v1",
+								"list-generator",
+								"debug"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "68.8120"
+								},
+								{
+									"key": "longitude",
+									"value": "71.3018"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "3276"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"ccc-Rgj5YRxsga59jBqYP7Iq0kMtRGo\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 05 Jan 2025 05:13:10 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": \"213097a3-cae1-48cf-b266-a361a972ff27\",\n        \"name\": \"Tamara Roberts\",\n        \"distance\": 0.10007543398026468,\n        \"age\": 51,\n        \"acceptedOffers\": 100,\n        \"canceledOffers\": 2,\n        \"averageReplyTime\": 87,\n        \"score\": {\n            \"age\": 9.33,\n            \"accepted\": 100,\n            \"canceled\": 2,\n            \"reply\": 87,\n            \"distance\": 0.10007543398026468,\n            \"total\": 9.33\n        },\n        \"behaviorScore\": 4.947368421052632,\n        \"behavior\": \"good\"\n    },\n    {\n        \"id\": \"f7f4b340-7944-4f4f-bcba-30b9d7bf4c2a\",\n        \"name\": \"Adeline Corwin\",\n        \"distance\": 7127.699311680091,\n        \"age\": 55,\n        \"acceptedOffers\": 91,\n        \"canceledOffers\": 3,\n        \"averageReplyTime\": 188,\n        \"score\": {\n            \"age\": 8.67,\n            \"accepted\": 91,\n            \"canceled\": 3,\n            \"reply\": 188,\n            \"distance\": 7127.699311680091,\n            \"total\": 8.67\n        },\n        \"behaviorScore\": 4.526315789473684,\n        \"behavior\": \"good\"\n    },\n    {\n        \"id\": \"b4ffa1b5-a496-47de-af84-9ace7fe4ec6d\",\n        \"name\": \"Miss Frida Harris\",\n        \"distance\": 5217.618554272726,\n        \"age\": 73,\n        \"acceptedOffers\": 88,\n        \"canceledOffers\": 2,\n        \"averageReplyTime\": 953,\n        \"score\": {\n            \"age\": 8.54,\n            \"accepted\": 88,\n            \"canceled\": 2,\n            \"reply\": 953,\n            \"distance\": 5217.618554272726,\n            \"total\": 8.54\n        },\n        \"behaviorScore\": 4.315789473684211,\n        \"behavior\": \"good\"\n    },\n    {\n        \"id\": \"7969ae0a-b16b-43f3-9a16-2c1ce4c119d9\",\n        \"name\": \"Zachary Spencer II\",\n        \"distance\": 558.2418307371005,\n        \"age\": 48,\n        \"acceptedOffers\": 84,\n        \"canceledOffers\": 1,\n        \"averageReplyTime\": 703,\n        \"score\": {\n            \"age\": 8.46,\n            \"accepted\": 84,\n            \"canceled\": 1,\n            \"reply\": 703,\n            \"distance\": 558.2418307371005,\n            \"total\": 8.46\n        },\n        \"behaviorScore\": 4.052631578947368,\n        \"behavior\": \"good\"\n    },\n    {\n        \"id\": \"bc73e144-56d4-4609-b89b-bdf608938c7f\",\n        \"name\": \"Mrs. Jaquan Lemke\",\n        \"distance\": 3985.34426719751,\n        \"age\": 39,\n        \"acceptedOffers\": 97,\n        \"canceledOffers\": 11,\n        \"averageReplyTime\": 415,\n        \"score\": {\n            \"age\": 8.41,\n            \"accepted\": 97,\n            \"canceled\": 11,\n            \"reply\": 415,\n            \"distance\": 3985.34426719751,\n            \"total\": 8.41\n        },\n        \"behaviorScore\": 5.263157894736842,\n        \"behavior\": \"good\"\n    },\n    {\n        \"id\": \"9902ce99-e4aa-434b-a5b5-49f2ae156391\",\n        \"name\": \"Laurine Kshlerin\",\n        \"distance\": 5708.0315941184635,\n        \"age\": 70,\n        \"acceptedOffers\": 92,\n        \"canceledOffers\": 12,\n        \"averageReplyTime\": 837,\n        \"score\": {\n            \"age\": 8.36,\n            \"accepted\": 92,\n            \"canceled\": 12,\n            \"reply\": 837,\n            \"distance\": 5708.0315941184635,\n            \"total\": 8.36\n        },\n        \"behaviorScore\": 5.052631578947368,\n        \"behavior\": \"good\"\n    },\n    {\n        \"id\": \"b72712f5-07fd-4cc3-8360-57835418df4b\",\n        \"name\": \"Jess Deckow\",\n        \"distance\": 11277.238196194807,\n        \"age\": 55,\n        \"acceptedOffers\": 97,\n        \"canceledOffers\": 8,\n        \"averageReplyTime\": 755,\n        \"score\": {\n            \"age\": 8.17,\n            \"accepted\": 97,\n            \"canceled\": 8,\n            \"reply\": 755,\n            \"distance\": 11277.238196194807,\n            \"total\": 8.17\n        },\n        \"behaviorScore\": 5.105263157894737,\n        \"behavior\": \"good\"\n    },\n    {\n        \"id\": \"c0ebff1c-ce08-4db0-97dc-2c77eca1bc0c\",\n        \"name\": \"Reta Torphy MD\",\n        \"distance\": 1411.9189753366616,\n        \"age\": 70,\n        \"acceptedOffers\": 94,\n        \"canceledOffers\": 40,\n        \"averageReplyTime\": 197,\n        \"score\": {\n            \"age\": 8.15,\n            \"accepted\": 94,\n            \"canceled\": 40,\n            \"reply\": 197,\n            \"distance\": 1411.9189753366616,\n            \"total\": 8.15\n        },\n        \"behaviorScore\": 6.63157894736842,\n        \"behavior\": \"good\"\n    },\n    {\n        \"id\": \"ce3f6da5-e617-4851-9cd2-2ed8028f8c02\",\n        \"name\": \"Barrett Johnson\",\n        \"distance\": 18370.114149520006,\n        \"age\": 53,\n        \"acceptedOffers\": 14,\n        \"canceledOffers\": 5,\n        \"averageReplyTime\": 2643,\n        \"score\": {\n            \"age\": 4.33,\n            \"accepted\": 14,\n            \"canceled\": 5,\n            \"reply\": 2643,\n            \"distance\": 18370.114149520006,\n            \"total\": 4.33\n        },\n        \"behaviorScore\": 0.5789473684210527,\n        \"behavior\": \"little\"\n    },\n    {\n        \"id\": \"25e9a7fe-7bc8-44b8-8235-f3a91a6332e8\",\n        \"name\": \"Frieda Hintz\",\n        \"distance\": 2867.7207889304473,\n        \"age\": 77,\n        \"acceptedOffers\": 14,\n        \"canceledOffers\": 10,\n        \"averageReplyTime\": 198,\n        \"score\": {\n            \"age\": 6.68,\n            \"accepted\": 14,\n            \"canceled\": 10,\n            \"reply\": 198,\n            \"distance\": 2867.7207889304473,\n            \"total\": 6.68\n        },\n        \"behaviorScore\": 0.8421052631578947,\n        \"behavior\": \"little\"\n    }\n]"
+				}
+			]
+		}
+	]
+}
