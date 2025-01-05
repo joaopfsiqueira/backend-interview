@@ -1,0 +1,11 @@
+services:
+     backend-interview:
+          image: backend-interview:latest
+          container_name: backend-interview
+          environment:
+               - NODE_ENV=production
+          build:
+               context: .
+               dockerfile: Dockerfile
+          ports:
+               - 3333:3333 # Change the port according to the need of the project
