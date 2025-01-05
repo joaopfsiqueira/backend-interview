@@ -7,7 +7,7 @@ import { IBetterListGeneratorService } from '../utils/interfaces/service/betterL
 
 class BetterListGeneratorController implements IController {
 	public router: Router;
-	private readonly basePath = '/list-generator';
+	private readonly basePath = '/api/v1/list-generator';
 
 	constructor(private service: IBetterListGeneratorService) {
 		this.router = Router();
