@@ -2,11 +2,13 @@
 	"devDependencies": {
 		"@types/express": "^5.0.0",
 		"@types/node": "^22.10.5",
+		"@vitest/coverage-v8": "^2.1.8",
 		"nodemon": "^3.1.9",
 		"ts-node": "^10.9.2",
 		"tsup": "^8.3.5",
 		"tsx": "^4.19.2",
-		"typescript": "^5.7.2"
+		"typescript": "^5.7.2",
+		"vitest": "^2.1.8"
 	},
 	"dependencies": {
 		"dotenv": "^16.4.7",
@@ -18,10 +20,11 @@
 	"description": "## Problem Definition",
 	"main": "server.ts",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
 		"dev": "DOTENV_CONFIG_PATH=.env nodemon server.ts",
 		"build": "tsup src",
-		"start": "tsup src && DOTENV_CONFIG_PATH=.env.prod node ./dist/server.js"
+		"start": "tsup src && DOTENV_CONFIG_PATH=.env.prod node ./dist/server.js",
+		"test": "vitest",
+		"test:coverage": "vitest --coverage"
 	},
 	"keywords": [],
 	"author": "",
