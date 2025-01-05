@@ -152,9 +152,10 @@ class Calculations implements ICalculations {
 	}
 
 	littleBehaviorCalculator(patient: IPatient, range: TRange): void {
-		const normalizedTotal = this.minMaxNormalization(patient.totalOffers!, range) * 10;
+		const behaviorNormalized = this.minMaxNormalization(patient.totalOffers!, range) * 10;
+		patient.behaviorScore = behaviorNormalized;
 		// if the patient has little behavior data, the score will be 1 or 10%, at this point!
-		if (normalizedTotal <= 1) {
+		if (behaviorNormalized <= 1) {
 			patient.behavior = false;
 		} else {
 			patient.behavior = true;

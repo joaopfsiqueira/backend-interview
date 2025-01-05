@@ -28,7 +28,7 @@ class BetterListGeneratorController implements IController {
 				return res.status(Http.BAD_REQUEST).send(error);
 			}
 
-			const list = this.service.processList(validation.data);
+			const list = this.service.processList(validation.data, false);
 
 			return res.status(Http.OK).send(list);
 		} catch (error) {
@@ -48,7 +48,7 @@ class BetterListGeneratorController implements IController {
 				return res.status(Http.BAD_REQUEST).send(error);
 			}
 
-			const list = this.service.processList(validation.data);
+			const list = this.service.processList(validation.data, true);
 
 			return res.status(Http.OK).send(list);
 		} catch (error) {

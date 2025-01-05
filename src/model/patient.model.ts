@@ -13,6 +13,7 @@ export interface IPatient {
 	score?: number;
 	totalOffers?: number;
 	behavior?: boolean; // little = false, much = true
+	behaviorScore?: number;
 }
 
 export interface IResponsePatients {
@@ -38,4 +39,6 @@ export interface IResponseDetailsPatientsDebug {
 		distance: number;
 		total: number;
 	};
+	behaviorScore?: number;
+	behavior?: string;
 }
