@@ -1,8 +1,8 @@
 import { IPatient, IResponsePatients } from '../model/patient.model';
-import { IBetterListGeneratorService } from '../interfaces/service/betterListGenerator.service.interface';
+import { IBetterListGeneratorService } from '../utils/interfaces/service/betterListGenerator.service.interface';
 import * as fs from 'fs';
 import * as path from 'path';
-import { ICalculations, IGeolocation } from '../interfaces/utils/calculations.interface';
+import { ICalculations, IGeolocation } from '../utils/interfaces/utils/calculations.interface';
 
 class BetterListGeneratorService implements IBetterListGeneratorService {
 	private patients: IPatient[] = [];
@@ -22,19 +22,7 @@ class BetterListGeneratorService implements IBetterListGeneratorService {
 		});
 
 		// Sort patients by score
-		const betterPatients = this.patients
-			.filter((patient) => patient.score !== undefined)
-			.sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
-			.slice(0, 10)
-			.map((patient) => {
-				return {
-					id: patient.id,
-					name: patient.name,
-					score: patient.score!,
-				};
-			});
-
-		return betterPatients;
+		return this.selectPatients();
 	}
 
 	loadPatients(): void {
@@ -45,6 +33,40 @@ class BetterListGeneratorService implements IBetterListGeneratorService {
 		} catch (error) {
 			throw new Error(`Error loading patients: ${error}`);
 		}
+	}
+
+	selectPatients(): IResponsePatients[] {
+		// separate patients by behavior
+		// select 8 best patients
+		const topPatients = this.patients
+			.filter((patient) => patient.score !== undefined && patient.behavior === true)
+			.sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
+			.slice(0, 8)
+			.map((patient) => ({
+				id: patient.id,
+				name: patient.name,
+				score: patient.score!,
+				behavior: patient.behavior === true ? 'good' : 'little',
+			}));
+
+		console.log(topPatients);
+
+		// select 2 random patients with little behavior data
+		const selectedRandomPatients = this.patients
+			.filter((patient) => patient.behavior === false)
+			.sort(() => Math.random() - 0.5) // mix the array
+			.slice(0, 2)
+			.map((patient) => ({
+				id: patient.id,
+				name: patient.name,
+				score: patient.score!,
+				behavior: patient.behavior === true ? 'good' : 'little',
+			}));
+
+		// put everything together
+		const finalList = [...topPatients, ...selectedRandomPatients];
+
+		return finalList;
 	}
 }
 

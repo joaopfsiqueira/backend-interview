@@ -19,6 +19,7 @@ export interface IResponsePatients {
 	id: string;
 	name: string;
 	score: number;
+	behavior: string;
 }
 
 export interface IResponseDetailsPatientsDebug {
