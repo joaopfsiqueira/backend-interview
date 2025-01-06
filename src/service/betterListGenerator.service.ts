@@ -53,7 +53,7 @@ class BetterListGeneratorService implements IBetterListGeneratorService {
 	selectPatients(): IResponsePatients[] {
 		let finalList: IResponsePatients[] = [];
 		// separate patients by behavior
-		// select 8 best patients
+		// select 7 best patients
 		const topPatients = this.patients
 			.filter((patient) => patient.score !== undefined && patient.behavior === true)
 			.sort((a, b) => b.score! - a.score!)
@@ -65,7 +65,7 @@ class BetterListGeneratorService implements IBetterListGeneratorService {
 				behavior: 'good',
 			}));
 
-		// select 2 random patients with little behavior data
+		// select 3 random patients with little behavior data
 		const selectedRandomPatients = this.patients
 			.filter((patient) => patient.behavior === false)
 			.sort(() => Math.random() - 0.5) // mix the array
