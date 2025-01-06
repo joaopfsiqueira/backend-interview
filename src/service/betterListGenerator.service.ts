@@ -56,7 +56,7 @@ class BetterListGeneratorService implements IBetterListGeneratorService {
 		// select 8 best patients
 		const topPatients = this.patients
 			.filter((patient) => patient.score !== undefined && patient.behavior === true)
-			.sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
+			.sort((a, b) => b.score! - a.score!)
 			.slice(0, process.env.TOTAL_TOP_PATIENTS)
 			.map((patient) => ({
 				id: patient.id,
@@ -80,7 +80,7 @@ class BetterListGeneratorService implements IBetterListGeneratorService {
 		if (selectedRandomPatients.length === 0) {
 			const moreTopPatients = this.patients
 				.filter((patient) => patient.score !== undefined && patient.behavior === true)
-				.sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
+				.sort((a, b) => b.score! - a.score!)
 				.slice(0, process.env.TOTAL_RANDOM_PATIENTS)
 				.map((patient) => ({
 					id: patient.id,
@@ -104,8 +104,8 @@ class BetterListGeneratorService implements IBetterListGeneratorService {
 		// select 8 best patients
 		const topPatients = this.patients
 			.filter((patient) => patient.score !== undefined && patient.behavior === true)
-			.sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
-			.slice(0, 8)
+			.sort((a, b) => b.score! - a.score!)
+			.slice(0, process.env.TOTAL_TOP_PATIENTS)
 			.map((patient) => ({
 				id: patient.id,
 				name: patient.name,
@@ -130,7 +130,7 @@ class BetterListGeneratorService implements IBetterListGeneratorService {
 		const selectedRandomPatients = this.patients
 			.filter((patient) => patient.behavior === false)
 			.sort(() => Math.random() - 0.5) // mix the array
-			.slice(0, 2)
+			.slice(0, process.env.TOTAL_RANDOM_PATIENTS)
 			.map((patient) => ({
 				id: patient.id,
 				name: patient.name,
@@ -154,8 +154,8 @@ class BetterListGeneratorService implements IBetterListGeneratorService {
 		if (selectedRandomPatients.length === 0) {
 			const moreTopPatients = this.patients
 				.filter((patient) => patient.score !== undefined && patient.behavior === true)
-				.sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
-				.slice(0, 2)
+				.sort((a, b) => b.score! - a.score!)
+				.slice(0, process.env.TOTAL_RANDOM_PATIENTS)
 				.map((patient) => ({
 					id: patient.id,
 					name: patient.name,
