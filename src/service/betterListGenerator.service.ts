@@ -51,90 +51,110 @@ class BetterListGeneratorService implements IBetterListGeneratorService {
 	}
 
 	selectPatients(): IResponsePatients[] {
-		try {
-			let finalList: IResponsePatients[] = [];
-			// separate patients by behavior
-			// select 8 best patients
-			const topPatients = this.patients
+		let finalList: IResponsePatients[] = [];
+		// separate patients by behavior
+		// select 8 best patients
+		const topPatients = this.patients
+			.filter((patient) => patient.score !== undefined && patient.behavior === true)
+			.sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
+			.slice(0, process.env.TOTAL_TOP_PATIENTS)
+			.map((patient) => ({
+				id: patient.id,
+				name: patient.name,
+				score: patient.score!,
+				behavior: 'good',
+			}));
+
+		// select 2 random patients with little behavior data
+		const selectedRandomPatients = this.patients
+			.filter((patient) => patient.behavior === false)
+			.sort(() => Math.random() - 0.5) // mix the array
+			.slice(0, process.env.TOTAL_RANDOM_PATIENTS)
+			.map((patient) => ({
+				id: patient.id,
+				name: patient.name,
+				score: patient.score!,
+				behavior: 'little',
+			}));
+
+		if (selectedRandomPatients.length === 0) {
+			const moreTopPatients = this.patients
 				.filter((patient) => patient.score !== undefined && patient.behavior === true)
 				.sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
-				.slice(0, process.env.TOTAL_TOP_PATIENTS)
-				.map((patient) => ({
-					id: patient.id,
-					name: patient.name,
-					score: patient.score!,
-					behavior: patient.behavior === true ? 'good' : 'little',
-				}));
-
-			// select 2 random patients with little behavior data
-			const selectedRandomPatients = this.patients
-				.filter((patient) => patient.behavior === false)
-				.sort(() => Math.random() - 0.5) // mix the array
 				.slice(0, process.env.TOTAL_RANDOM_PATIENTS)
 				.map((patient) => ({
 					id: patient.id,
 					name: patient.name,
 					score: patient.score!,
-					behavior: patient.behavior === true ? 'good' : 'little',
+					behavior: 'good',
 				}));
-
-			if (selectedRandomPatients.length === 0) {
-				const moreTopPatients = this.patients
-					.filter((patient) => patient.score !== undefined && patient.behavior === true)
-					.sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
-					.slice(0, process.env.TOTAL_RANDOM_PATIENTS)
-					.map((patient) => ({
-						id: patient.id,
-						name: patient.name,
-						score: patient.score!,
-						behavior: patient.behavior === true ? 'good' : 'little',
-					}));
-				finalList = [...topPatients, ...moreTopPatients];
-				return finalList;
-			}
-
-			// put everything together
-			finalList = [...topPatients, ...selectedRandomPatients];
-
+			finalList = [...topPatients, ...moreTopPatients];
 			return finalList;
-		} catch (error) {
-			throw new Error(`Error selecting patients: ${error}`);
 		}
+
+		// put everything together
+		finalList = [...topPatients, ...selectedRandomPatients];
+
+		return finalList;
 	}
 
 	selectPatientsDebug(): IResponseDetailsPatientsDebug[] {
-		try {
-			let finalList: IResponseDetailsPatientsDebug[] = [];
-			// separate patients by behavior
-			// select 8 best patients
-			const topPatients = this.patients
+		let finalList: IResponseDetailsPatientsDebug[] = [];
+		// separate patients by behavior
+		// select 8 best patients
+		const topPatients = this.patients
+			.filter((patient) => patient.score !== undefined && patient.behavior === true)
+			.sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
+			.slice(0, 8)
+			.map((patient) => ({
+				id: patient.id,
+				name: patient.name,
+				distance: patient.distance!,
+				age: patient.age,
+				acceptedOffers: patient.acceptedOffers,
+				canceledOffers: patient.canceledOffers,
+				averageReplyTime: patient.averageReplyTime,
+				score: {
+					age: patient.score!,
+					accepted: patient.acceptedOffers,
+					canceled: patient.canceledOffers,
+					reply: patient.averageReplyTime,
+					distance: patient.distance!,
+					total: patient.score!,
+				},
+				behaviorScore: patient.behaviorScore!,
+				behavior: 'good',
+			}));
+
+		// select 2 random patients with little behavior data
+		const selectedRandomPatients = this.patients
+			.filter((patient) => patient.behavior === false)
+			.sort(() => Math.random() - 0.5) // mix the array
+			.slice(0, 2)
+			.map((patient) => ({
+				id: patient.id,
+				name: patient.name,
+				distance: patient.distance!,
+				age: patient.age,
+				acceptedOffers: patient.acceptedOffers,
+				canceledOffers: patient.canceledOffers,
+				averageReplyTime: patient.averageReplyTime,
+				score: {
+					age: patient.score!,
+					accepted: patient.acceptedOffers,
+					canceled: patient.canceledOffers,
+					reply: patient.averageReplyTime,
+					distance: patient.distance!,
+					total: patient.score!,
+				},
+				behaviorScore: patient.behaviorScore!,
+				behavior: 'little',
+			}));
+
+		if (selectedRandomPatients.length === 0) {
+			const moreTopPatients = this.patients
 				.filter((patient) => patient.score !== undefined && patient.behavior === true)
 				.sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
-				.slice(0, 8)
-				.map((patient) => ({
-					id: patient.id,
-					name: patient.name,
-					distance: patient.distance!,
-					age: patient.age,
-					acceptedOffers: patient.acceptedOffers,
-					canceledOffers: patient.canceledOffers,
-					averageReplyTime: patient.averageReplyTime,
-					score: {
-						age: patient.score!,
-						accepted: patient.acceptedOffers,
-						canceled: patient.canceledOffers,
-						reply: patient.averageReplyTime,
-						distance: patient.distance!,
-						total: patient.score!,
-					},
-					behaviorScore: patient.behaviorScore!,
-					behavior: patient.behavior === true ? 'good' : 'little',
-				}));
-
-			// select 2 random patients with little behavior data
-			const selectedRandomPatients = this.patients
-				.filter((patient) => patient.behavior === false)
-				.sort(() => Math.random() - 0.5) // mix the array
 				.slice(0, 2)
 				.map((patient) => ({
 					id: patient.id,
@@ -153,44 +173,16 @@ class BetterListGeneratorService implements IBetterListGeneratorService {
 						total: patient.score!,
 					},
 					behaviorScore: patient.behaviorScore!,
-					behavior: patient.behavior === true ? 'good' : 'little',
+					behavior: 'little',
 				}));
-
-			if (selectedRandomPatients.length === 0) {
-				const moreTopPatients = this.patients
-					.filter((patient) => patient.score !== undefined && patient.behavior === true)
-					.sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
-					.slice(0, 2)
-					.map((patient) => ({
-						id: patient.id,
-						name: patient.name,
-						distance: patient.distance!,
-						age: patient.age,
-						acceptedOffers: patient.acceptedOffers,
-						canceledOffers: patient.canceledOffers,
-						averageReplyTime: patient.averageReplyTime,
-						score: {
-							age: patient.score!,
-							accepted: patient.acceptedOffers,
-							canceled: patient.canceledOffers,
-							reply: patient.averageReplyTime,
-							distance: patient.distance!,
-							total: patient.score!,
-						},
-						behaviorScore: patient.behaviorScore!,
-						behavior: patient.behavior === true ? 'good' : 'little',
-					}));
-				finalList = [...topPatients, ...moreTopPatients];
-				return finalList;
-			}
-
-			// put everything together
-			finalList = [...topPatients, ...selectedRandomPatients];
-
+			finalList = [...topPatients, ...moreTopPatients];
 			return finalList;
-		} catch (error) {
-			throw new Error(`Error selecting patients debug: ${error}`);
 		}
+
+		// put everything together
+		finalList = [...topPatients, ...selectedRandomPatients];
+
+		return finalList;
 	}
 }
 
