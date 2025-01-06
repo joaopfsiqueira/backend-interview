@@ -129,7 +129,7 @@ TOTAL_RANDOM_PATIENTS=3
 
 If you want to have more than 3 random patients, just change the value!
 
-Remember that the sum of TOTAL_TOP_PATIENTS and TOTAL_RANDOM_PATIENTS **MUST** be 10 (To return the 10 patients).
+_Remember that the sum of TOTAL_TOP_PATIENTS and TOTAL_RANDOM_PATIENTS **MUST** be 10 (To return the 10 patients)._
 <a id="running"></a>
 
 ## 🏎 Running
