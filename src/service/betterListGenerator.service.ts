@@ -17,6 +17,10 @@ class BetterListGeneratorService implements IBetterListGeneratorService {
 			// Load patients in memory
 			this.loadPatients();
 
+			if (this.patients.length === 0) {
+				throw new Error('No patients found');
+			}
+
 			// i need to pass through patients twice. One to find the min and max values for each field and another to calculate the score
 			// Find min and max values for each field
 			const minMaxValues = this.calculator.minMaxFinder(this.patients, reference);
