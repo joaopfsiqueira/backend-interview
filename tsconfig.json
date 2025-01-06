@@ -16,6 +16,9 @@
         "src/types/*"
       ]
     },
+    "types": [
+      "vitest/globals"
+    ],
     "typeRoots": [
       "./node_modules/@types",
       "./src/@types",
