@@ -7,8 +7,6 @@ export function ErrorZodFormat(errors: ZodIssue[]): string {
 	errors.forEach((error: ZodIssue) => {
 		errorZod += error.message + ', ';
 	});
-
-	// removendo a última vírgula e espaço
 	errorZod = errorZod.slice(0, errorZod.length - 2);
 	console.log(errorZod);
 
